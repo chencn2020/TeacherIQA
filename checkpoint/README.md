@@ -1,0 +1,1 @@
+Please download the checkpoint trained on KonIQ-10k dataset from [Google drive](https://drive.google.com/file/d/1gQforxqc-QWvDwCsNAyYt2MLSSzUPoyJ/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1C2y1fsmBh8vfaL3642PpKA) (password: rvah).
