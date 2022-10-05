@@ -190,10 +190,10 @@ class InceptionConv(nn.Module):
         return self.tripleConv(inceptionRes)
 
 
-class DAM(nn.Module):
+class MC(nn.Module):
     def __init__(self, in_ch, out_ch):
-        super(DAM, self).__init__()
-        self.DAMConv = InceptionConv(in_ch, out_ch)
+        super(MC, self).__init__()
+        self.MCConv = InceptionConv(in_ch, out_ch)
 
     def pad(self, x1, x2):
         diffY = x2.size()[2] - x1.size()[2]
@@ -205,7 +205,7 @@ class DAM(nn.Module):
     def forward(self, encoderFeature, decoderFeature):
         encoderFeature = self.pad(encoderFeature, decoderFeature)
         merge = torch.cat([encoderFeature, decoderFeature], dim=1)
-        return self.DAMConv(merge)
+        return self.MCConv(merge)
 
 
 class TeacherNetwork(nn.Module):
@@ -218,16 +218,16 @@ class TeacherNetwork(nn.Module):
 
         # up
         self.up1 = nn.ConvTranspose2d(2048, 1024, 2, 2)
-        self.upDAM1 = DAM(1024 * 2, 1024)  # 14 * 14
+        self.upMC1 = MC(1024 * 2, 1024)  # 14 * 14
 
         self.up2 = nn.ConvTranspose2d(1024, 512, 2, 2)
-        self.upDAM2 = DAM(512 * 2, 512)  # 28 * 28
+        self.upMC2 = MC(512 * 2, 512)  # 28 * 28
 
         self.up3 = nn.ConvTranspose2d(512, 256, 2, 2)
-        self.upDAM3 = DAM(256 * 2, 256)  # 56 * 56
+        self.upMC3 = MC(256 * 2, 256)  # 56 * 56
 
         self.up4 = nn.ConvTranspose2d(256, 64, 2, 2)  # 112 * 112
-        self.upDAM4 = DAM(64 * 2, 64)  # 56 * 56
+        self.upMC4 = MC(64 * 2, 64)  # 56 * 56
 
         self.up5 = nn.ConvTranspose2d(64, 64, 2, 2)  # 224 * 224
         self.out = nn.Conv2d(64, out_ch, 1)
@@ -239,21 +239,21 @@ class TeacherNetwork(nn.Module):
 
         # up
         decoderFeature1 = self.up1(bottom)  # 14 * 14
-        upDAM1 = self.upDAM1(decoderFeature1, encoderFeature3)
+        upMC1 = self.upMC1(decoderFeature1, encoderFeature3)
 
-        decoderFeature2 = self.up2(upDAM1)
-        upDAM2 = self.upDAM2(decoderFeature2, encoderFeature2)  # 28 * 28
+        decoderFeature2 = self.up2(upMC1)
+        upMC2 = self.upMC2(decoderFeature2, encoderFeature2)  # 28 * 28
 
-        decoderFeature3 = self.up3(upDAM2)
-        upDAM3 = self.upDAM3(decoderFeature3, encoderFeature1)  # 56 * 56
+        decoderFeature3 = self.up3(upMC2)
+        upMC3 = self.upMC3(decoderFeature3, encoderFeature1)  # 56 * 56
 
-        decoderFeature4 = self.up4(upDAM3)
-        upDAM4 = self.upDAM4(decoderFeature4, encoderFeature0)  # 56 * 56
+        decoderFeature4 = self.up4(upMC3)
+        upMC4 = self.upMC4(decoderFeature4, encoderFeature0)  # 56 * 56
 
-        up5 = self.up5(upDAM4)
+        up5 = self.up5(upMC4)
         out = self.out(up5)
 
-        return nn.Sigmoid()(out), bottom, [upDAM1, upDAM2, upDAM3]
+        return nn.Sigmoid()(out), bottom, [upMC1, upMC2, upMC3]
 
 
 if __name__ == '__main__':

@@ -32,9 +32,9 @@ class selfAttention(nn.Module):
 
         return out
 
-class KIM(nn.Module):
+class enc(nn.Module):
     def __init__(self, ch):
-        super(KIM, self).__init__()
+        super(enc, self).__init__()
         self.KI = selfAttention(ch)
 
     def forward(self, KL, distortionKL):
@@ -57,27 +57,27 @@ class StudentNetwork(nn.Module):
             nn.ReLU(inplace=True),
         )
 
-        self.upDAM1Conv = nn.Sequential(
+        self.upMC1Conv = nn.Sequential(
             nn.Conv2d(1024, 256, kernel_size=1),
             nn.ReLU(inplace=True),
             nn.AvgPool2d(2, 2),
         )
 
-        self.upDAM2Conv = nn.Sequential(
+        self.upMC2Conv = nn.Sequential(
             nn.Conv2d(512, 512, kernel_size=1),
             nn.ReLU(inplace=True),
             nn.AvgPool2d(4, 4),
         )
 
-        self.upDAM3Conv = nn.Sequential(
+        self.upMC3Conv = nn.Sequential(
             nn.Conv2d(256, 1024, kernel_size=1),
             nn.ReLU(inplace=True),
             nn.AvgPool2d(8, 8),
         )
 
-        self.KIM1 = KIM(512)
-        self.KIM2 = KIM(1024)
-        self.KIM3 = KIM(2048)
+        self.enc1 = enc(512)
+        self.enc2 = enc(1024)
+        self.enc3 = enc(2048)
 
         self.iqaScore = nn.Sequential(
             nn.Conv2d(2048, 1024, kernel_size=1, stride=1),  # 24 24
@@ -95,13 +95,13 @@ class StudentNetwork(nn.Module):
         _, semanticKL, [distortionKL1, distortionKL2, distortionKL3] = self.tn(img)
         resNetBottomFeature = self.bottomConv(semanticKL)  # n, 32, 28, 28
 
-        distortionKL1 = self.upDAM1Conv(distortionKL1)  # n, 32, 28, 28
-        distortionKL2 = self.upDAM2Conv(distortionKL2)  # n, 32, 28, 28
-        distortionKL3 = self.upDAM3Conv(distortionKL3)  # n, 32, 28, 28
+        distortionKL1 = self.upMC1Conv(distortionKL1)  # n, 32, 28, 28
+        distortionKL2 = self.upMC2Conv(distortionKL2)  # n, 32, 28, 28
+        distortionKL3 = self.upMC3Conv(distortionKL3)  # n, 32, 28, 28
 
-        attention1 = self.KIM1(resNetBottomFeature, distortionKL1)
-        attention2 = self.KIM2(attention1, distortionKL2)
-        attention3 = self.KIM3(attention2, distortionKL3)
+        attention1 = self.enc1(resNetBottomFeature, distortionKL1)
+        attention2 = self.enc2(attention1, distortionKL2)
+        attention3 = self.enc3(attention2, distortionKL3)
 
         return self.iqaScore(attention3).view(img.shape[0])
 

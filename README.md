@@ -17,7 +17,7 @@ This repository is the source code for the paper "Teacher-Guided Learning for Bl
 
 You can predict the image quality score for any images with our model which is trained on KonIq-10k dataset.
 
-The pre-trained model can be downloaded from [Google drive](https://drive.google.com/file/d/1gQforxqc-QWvDwCsNAyYt2MLSSzUPoyJ/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1C2y1fsmBh8vfaL3642PpKA) (password: rvah).
+The pre-trained model can be downloaded from [Google drive](https://drive.google.com/file/d/1iNhJQpUWSAkwSfDbfXzu834gm7NoT3m0/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1aE8_stfHexjzPECyk1YlwA) (password: b86d).
 
 Please put the pre-trained model into **'./checkpoint'** folder. Then run:
 
