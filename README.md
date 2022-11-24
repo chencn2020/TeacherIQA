@@ -1,6 +1,6 @@
 # TeacherIQA
 
-This repository is the source code for the paper "Teacher-Guided Learning for Blind Image Quality Assessment".
+This repository is the source code for the paper "[Teacher-Guided Learning for Blind Image Quality Assessment](https://openaccess.thecvf.com/content/ACCV2022/html/Chen_Teacher-Guided_Learning_for_Blind_Image_Quality_Assessment_ACCV_2022_paper.html)".
 
 ![Framework](./pic/framework.jpg)
 
@@ -33,11 +33,12 @@ Finally, you will get an average quality score ranging from 0-100. But there exi
 ## Citation
 If our work is useful to your research, we will be grateful for you to cite our paper:
 ```
-@InProceedings{xxx,
-author = {Zewen Chen, Juan Wang, Bing Li, Chunfeng Yuan, Weihua Xiong, Rui Cheng and Weiming Hu},
-title = {Teacher-Guided Learning for Blind Image Quality Assessment},
-booktitle = {xxx},
-month = {xxx},
-year = {2022}
+@InProceedings{Chen_2022_ACCV,
+    author    = {Chen, Zewen and Wang, Juan and Li, Bing and Yuan, Chunfeng and Xiong, Weihua and Cheng, Rui and Hu, Weiming},
+    title     = {Teacher-Guided Learning for Blind Image Quality Assessment},
+    booktitle = {Proceedings of the Asian Conference on Computer Vision (ACCV)},
+    month     = {December},
+    year      = {2022},
+    pages     = {2457-2474}
 }
 
