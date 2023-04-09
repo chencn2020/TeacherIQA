@@ -1,5 +1,7 @@
 # TeacherIQA
 
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=chencn2020/TeacherIQA)
+
 This repository is the source code for the paper "[Teacher-Guided Learning for Blind Image Quality Assessment](https://openaccess.thecvf.com/content/ACCV2022/html/Chen_Teacher-Guided_Learning_for_Blind_Image_Quality_Assessment_ACCV_2022_paper.html)".
 
 ![Framework](./pic/framework.jpg)
