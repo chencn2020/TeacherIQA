@@ -2,7 +2,6 @@
 
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=chencn2020/TeacherIQA)
 [![paper](https://img.shields.io/badge/arXiv-Paper-green.svg)](https://openaccess.thecvf.com/content/ACCV2022/html/Chen_Teacher-Guided_Learning_for_Blind_Image_Quality_Assessment_ACCV_2022_paper.html)
-[![download](https://img.shields.io/github/downloads/chencn2020/TeacherIQA/total.svg)](https://github.com/chencn2020/TeacherIQA/releases)
 [![Open issue](https://img.shields.io/github/issues/chencn2020/TeacherIQA)](https://github.com/chencn2020/TeacherIQA/issues)
 [![Closed issue](https://img.shields.io/github/issues-closed/chencn2020/TeacherIQA)](https://github.com/chencn2020/TeacherIQA/issues)
 [![GitHub Stars](https://img.shields.io/github/stars/chencn2020/TeacherIQA?style=social)](https://github.com/chencn2020/TeacherIQA)
